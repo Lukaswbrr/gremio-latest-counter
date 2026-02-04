@@ -30,25 +30,12 @@ class handler(BaseHTTPRequestHandler):
         return recent_matches
 
     def do_GET(self):
-        # 1. Logic: Fetch the target URL
-        url = "https://example.com"
 
-        ua = UserAgent()
-
-        # # Add headers to mimic a browser (helps avoid some basic blocks)
-        headers = {'User-Agent': ua.random}
-        response = requests.get(url, headers=headers)
-
-        # # 2. Logic: Parse with BeautifulSoup
-        soup = BeautifulSoup(response.text, "html.parser")
-        page_title = soup.title.string if soup.title else "No title found"
-
-        # 3. Response: Send data back to the client
         self.send_response(200)
         self.send_header('Content-type', 'application/json')
         self.end_headers()
         
-        data = {"title": page_title}
+        data = self.get_latest_matches()
         self.wfile.write(json.dumps(data).encode())
 
 # def format_match_results(recent_matches):
