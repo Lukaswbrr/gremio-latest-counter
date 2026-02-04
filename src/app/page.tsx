@@ -1,5 +1,20 @@
+"use client";
+
 export default function Home() {
+  
+  const testData = async () => {
+      const response = await fetch("api/scrape_test.py", {});
+      const data = await response.json();
+
+      console.log(data);
+  }
+  
   return (
-    <h1>Hello world!</h1>
+      <div>
+          <h1>Hello world!</h1>
+
+          <button onClick={testData}>Fetch Data</button>
+      </div>
+      
   )
 }
