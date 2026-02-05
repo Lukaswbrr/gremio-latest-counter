@@ -3,31 +3,37 @@
 import { match } from "assert";
 
 export default function Home() {
-  
-  const testData = async () => {
-      const response = await fetch("api/scrape_test.py", {});
-      const data = await response.json();
+    
+    const getData = async () => {
+        const response = await fetch("api/scrape_test.py", {});
+        const data = await response.json();
+        return data;
+    }
 
-      console.log(data);
+    const testData = async () => {
+        const response = await fetch("api/scrape_test.py", {});
+        const data = await response.json();
 
-      for (const item of data) {
-          switch (item.resultString) {
-            case "W":
-                console.log("Win");
-                break;
-            case "L":
-                console.log("Loss");
-                break;
-            case "D":
-                console.log("Draw");
-                break;
-            default:
-                console.log("Unknown result");
-          }
-      }
+        console.log(data);
 
-      return data;
-  }
+        for (const item of data) {
+            switch (item.resultString) {
+                case "W":
+                    console.log("Win");
+                    break;
+                case "L":
+                    console.log("Loss");
+                    break;
+                case "D":
+                    console.log("Draw");
+                    break;
+                default:
+                    console.log("Unknown result");
+            }
+        }
+
+        return data;
+    }
   
   return (
       <div>
@@ -37,7 +43,7 @@ export default function Home() {
 
           <div className="stats">
                 {/* Stats will be displayed here */}
-                {testData().then(data => 
+                {getData().then(data => 
                     data.map((item: { resultString: string }, index: number) =>
                     <div key={index}>
                         <p>Result: {item.resultString}</p>
