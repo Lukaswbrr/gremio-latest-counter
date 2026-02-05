@@ -1,17 +1,25 @@
 "use client";
 
-import { match } from "assert";
+import { useState, useEffect } from 'react';
+
+type MatchItem = {
+    resultMatch?: string;
+    resultString?: string;
+};
 
 export default function Home() {
+
+    const [data, setData] = useState<MatchItem[]>([]);
     
     const getData = async () => {
-        const response = await fetch("api/scrape_test.py", {});
-        const data = await response.json();
-        return data;
+        const response = await fetch("/api/scrape_test.py", {});
+        const json = await response.json();
+
+        setData(Array.isArray(json) ? (json as MatchItem[]) : []);
     }
 
     const testData = async () => {
-        const response = await fetch("api/scrape_test.py", {});
+        const response = await fetch("/api/scrape_test.py", {});
         const data = await response.json();
 
         console.log(data);
@@ -35,14 +43,22 @@ export default function Home() {
         return data;
     }
   
+    useEffect(() => {
+        getData();
+    }, []);
+
   return (
-      <div>
-          <h1>Hello world!</h1>
+    <div>
+        <h1>Hello world!</h1>
 
-          <button onClick={testData}>Fetch Data</button>
+        <button onClick={testData}>Fetch Data</button>
 
-          
-      </div>
-      
+        {data.map((item, index: number) => (
+            <div key={index}>
+                <p>{item.resultMatch ?? item.resultString ?? ""}</p>
+            </div>
+        ))}
+        
+    </div>
   )
 }
