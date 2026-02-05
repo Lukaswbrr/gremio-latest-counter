@@ -41,15 +41,7 @@ export default function Home() {
 
           <button onClick={testData}>Fetch Data</button>
 
-          <div className="stats">
-                {/* Stats will be displayed here */}
-                {getData().then(data => 
-                    data.map((item: { resultString: string }, index: number) =>
-                    <div key={index}>
-                        <p>Result: {item.resultString}</p>
-                    </div>
-                ))}
-          </div>
+          
       </div>
       
   )
