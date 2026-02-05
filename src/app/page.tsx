@@ -25,6 +25,8 @@ export default function Home() {
                 console.log("Unknown result");
           }
       }
+
+      return data;
   }
   
   return (
@@ -32,6 +34,16 @@ export default function Home() {
           <h1>Hello world!</h1>
 
           <button onClick={testData}>Fetch Data</button>
+
+          <div className="stats">
+                {/* Stats will be displayed here */}
+                {testData().then(data => 
+                    data.map((item: { resultString: string }, index: number) =>
+                    <div key={index}>
+                        <p>Result: {item.resultString}</p>
+                    </div>
+                ))}
+          </div>
       </div>
       
   )
