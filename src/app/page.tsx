@@ -1,5 +1,7 @@
 "use client";
 
+import { match } from "assert";
+
 export default function Home() {
   
   const testData = async () => {
@@ -7,6 +9,22 @@ export default function Home() {
       const data = await response.json();
 
       console.log(data);
+
+      for (const item of data) {
+          switch (item.resultString) {
+            case "W":
+                console.log("Win");
+                break;
+            case "L":
+                console.log("Loss");
+                break;
+            case "D":
+                console.log("Draw");
+                break;
+            default:
+                console.log("Unknown result");
+          }
+      }
   }
   
   return (
